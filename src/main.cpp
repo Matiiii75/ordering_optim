@@ -1,0 +1,103 @@
+#include <iostream>
+#include <string>
+#include <exception>
+
+#include "Data.hpp"
+#include "State_graph.hpp"
+#include "DagSumCut.hpp"
+#include "DagCutwidth.hpp"
+#include "FPT_solver.hpp"
+#include "ResultsLogs.hpp"
+#include "DSC1.hpp"
+#include "DSC2.hpp"
+#include "DSC3.hpp"
+#include "CW2.hpp"
+#include "CW3.hpp"
+
+int main(int argc, char* argv[]) 
+{   
+    if(argc != 4) std::cout << "erreur nb args" << std::endl;
+
+    std::string instance_file = argv[1]; 
+    int choice_algo = atoi(argv[2]); 
+    int write_results = atoi(argv[3]); 
+    double time_limit = 1.00; 
+    Data data(instance_file);
+    SolverResults res; 
+    ResultsLogs logs;
+    bool display_order = false; 
+
+    if(choice_algo == 0) 
+    {
+        State_graph SG(data); 
+        DagSumCut critere_DSC(data); 
+        FPT_solver solver(data, SG, critere_DSC, time_limit); 
+        solver.solve(); 
+        res = solver.get_results();   
+        logs.display_FPT(res, display_order);
+        if(res.found_solution)
+            critere_DSC.checker(res.optimal_order, res.optimal_value); 
+        if(write_results)
+            logs.write_FPT_results(res, "DSC"); 
+    }
+    if(choice_algo == 1)
+    {
+        State_graph SG(data); 
+        DagCutwidth critere_CW(data); 
+        FPT_solver solver(data, SG, critere_CW, time_limit); 
+        solver.solve(); 
+        res = solver.get_results();   
+        logs.display_FPT(res, display_order);
+        if(res.found_solution)
+            critere_CW.checker(res.optimal_order, res.optimal_value); 
+        if(write_results)
+            logs.write_FPT_results(res, "CW"); 
+    }
+    if(choice_algo == 2)
+    {
+        DSC1 milp(data, time_limit); 
+        milp.solve(); 
+        res = milp.get_results(); 
+        logs.display_Milp(res, display_order); 
+        if(write_results)
+            logs.write_MILP_results(res, "DSC1"); 
+    }
+    if(choice_algo == 3) 
+    {
+        DSC2 milp(data, time_limit); 
+        milp.solve(); 
+        res = milp.get_results(); 
+        logs.display_Milp(res, display_order); 
+        if(write_results)
+            logs.write_MILP_results(res, "DSC2"); 
+    }
+    if(choice_algo == 4)
+    {
+        DSC3 milp(data, time_limit); 
+        milp.solve(); 
+        res = milp.get_results(); 
+        logs.display_Milp(res, display_order);
+        if(write_results)
+            logs.write_MILP_results(res, "DSC3");  
+    }
+    if(choice_algo == 5) 
+    {
+        CW2 milp(data, time_limit); 
+        milp.solve(); 
+        res = milp.get_results(); 
+        logs.display_Milp(res, display_order);
+        if(write_results)
+            logs.write_MILP_results(res, "CW2"); 
+    }
+    if(choice_algo == 6) 
+    {
+        CW3 milp(data, time_limit); 
+        milp.solve(); 
+        res = milp.get_results(); 
+        logs.display_Milp(res, display_order);
+        if(write_results)
+            logs.write_MILP_results(res, "CW3"); 
+    }
+
+    return 0; 
+}

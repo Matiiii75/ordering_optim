@@ -1,0 +1,6 @@
+*.o
+prog 
+instances/
+results/
+.vscode/
+.DS_Store

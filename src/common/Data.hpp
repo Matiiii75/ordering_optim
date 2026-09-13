@@ -1,0 +1,112 @@
+#pragma once 
+
+#include <iostream>
+#include <vector>
+#include <unordered_map> 
+#include <unordered_set>
+#include <string>
+#include <random> 
+#include <fstream> 
+#include <algorithm> 
+#include <queue>
+#include <map> 
+#include <cassert>
+#include <optional>
+
+using Dag = std::vector<std::vector<int>>;
+
+// prend en entrée un chemin jusqu'à une instance et ressort juste le nom de l'instance 
+std::string getFileName(const std::string& path); 
+
+/**
+ * @brief structure qui représente un bit128 en deux parties de 64 bits
+ * @param l les 64 bits de gauche du bit128
+ * @param r les 64 bits de droite du bit128
+ * @note elle est munie d'operator (==) & (^) pour pouvoir comparer des bit128
+ *  et faire le XOR 
+ */
+struct keyHash {
+
+    // l : partie gauche du nombre 
+    // r : partie droite du nombre
+    std::uint64_t l, r; 
+
+    // définition de l'opérateur == (comparaison)
+    bool operator==(const keyHash& other) const; 
+
+    // définition de l'opérateur XOR 
+    keyHash operator^(const keyHash& other) const; 
+
+    // operateur d'affichage d'un keyHash
+    std::ostream& operator<<(std::ostream& os) const; 
+
+}; 
+
+
+/**
+ * @brief genere un keyhash aléatoire
+ * @param moteur c'est le generateur aléatoire qu'on a créé avant
+ *  et qui produit rapidement un entier encodé sur 64 bits
+ * @return keyhash généré aléatoirement 
+ */
+keyHash randomGenerator(std::mt19937_64& moteur); 
+
+
+/**
+ * @brief calcule le hash d'un ensemble de candidats (noeud du graphe d'états)
+ * @param cand l'ensemble candidat 
+ * @param node_to_hash structure qui associé à chaque noeud du dag un hash 
+ * @return hash de l'ensemble candidats
+ */
+keyHash compute_cand_hash(const std::vector<int>& cand, const std::vector<keyHash>& node_to_hash); 
+
+
+
+struct Data {
+
+    std::string instance_name; 
+
+    Dag dag; // dag initial
+    Dag reverse_dag; // reverse_dag (on inverse le sens des arcs)
+
+    int dag_size; 
+    int nb_arcs; 
+    int degenerascy; 
+
+    int s, t; // source & puit
+    
+    std::vector<std::vector<bool>> TC; // transitive closure du dag initial
+    std::vector<keyHash> node_to_hash; // à chaque noeud du dag, on associe un hash 
+
+    /**
+     * @brief constructeur de Data : initialise les données du pb, 
+     * comme dag, reverse_dag, transitive closure etc.. à partir d'un instance 
+     * @param file instance du dag initial
+     * @warning ATTENTION : l'ordre des sommets dans dag et reverser_dag doit etre CROISSANT !! 
+     */
+    Data(const std::string& file); 
+
+    /**
+     * @brief constructeur de Data : initialise les données du problème à
+     * partir d'un dag encodé en matrice d'adjacence 
+     * @note : ON PEUT L'AMÉLIORER EN DONNANT LA TC DU DAG ORIGINALE ET LE DICTIONAIRE NEW_TO_OLD
+     * POUR NE PAS AVOIR A RECALCULER LA TC DEPUIS LE DÉBUT 
+     */
+    Data(const std::vector<std::vector<int>>& _dag); 
+
+    void compute_transitive_closure(); // calcule la transitive closure (ON PEUT AMELIORER)
+    void compute_node_to_hash(); // calcule les hash de chaque noeud du dag 
+    
+    void display_dag() const; // affichage dag et reverse dag 
+    void display_reverse_dag() const; 
+
+}; 
+
+
+
+
+
+
+
+
+
