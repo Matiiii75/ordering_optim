@@ -80,7 +80,7 @@ run_one_instance() {
 
     # Filtrage selon la logique de ton ancien script (FPT <= 50, MILP <= 500)
     if (( CHOICE_ALGO == 0 || CHOICE_ALGO == 1 )); then
-        if (( n > 50 )); then
+        if (( n > 5000 )); then # j'ai mis 5000 volontairement pour autoriser le traitement de toutes les instances !!!!!!!!!!!!!!!!!!!!!
             return 0
         fi
     else
