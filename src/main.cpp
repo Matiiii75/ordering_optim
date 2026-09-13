@@ -21,7 +21,7 @@ int main(int argc, char* argv[])
     std::string instance_file = argv[1]; 
     int choice_algo = atoi(argv[2]); 
     int write_results = atoi(argv[3]); 
-    double time_limit = 1.00; 
+    double time_limit = 600.00; 
     Data data(instance_file);
     SolverResults res; 
     ResultsLogs logs;
