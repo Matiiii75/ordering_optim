@@ -19,9 +19,9 @@
 MODE_CIBLE="${1:-fpt_dsc}" # Mode par défaut
 
 # Chemins et ressources
-INST_DIR="/home/periat/LIP6/instances"
-RES_DIR="/home/periat/LIP6/results"
-EXEC="/home/periat/LIP6/src/prog"
+INST_DIR="/home/periat/ordering_optim/instances"
+RES_DIR="/home/periat/ordering_optim/results"
+EXEC="/home/periat/ordering_optim/prog"
 
 NB_CORES=16
 WRITING_RESULTS=1
