@@ -29,7 +29,6 @@ struct State_graph
     const Data& data; 
     std::vector<std::vector<int>> ID_to_cands; 
     std::unordered_map<keyHash, std::vector<int>, KeyHasher, KeyEqual> hash_to_ID; 
-    std::vector<std::vector<int>> SG; 
     std::vector<int> weights; 
     int curr_layer_size; 
     std::vector<int> curr_layer_IDs;    
@@ -60,15 +59,7 @@ struct State_graph
      * @warning on doit rentrer dans cette fonction QUE SI cand n'est pas déjà dans SG 
      * @note la fonction 
      */
-    void add_cand_to_SG(const std::vector<int>& cand, const keyHash& cand_hash); 
-
-    /**
-     * @brief ajoute l'arc (C1,C2) graphe d'états 
-     * @param cand1_ID le sommet départ 
-     * @param cand2_ID le sommet arrivée  
-     * @warning On doit avoir au préalable vérifié que cand1_ID et cand2_ID sont bien dans SG et ont bien le bon ID associé 
-     */
-    void add_arc_from_C1_to_C2(int cand1_ID, int cand2_ID);   
+    void add_cand_to_SG(const std::vector<int>& cand, const keyHash& cand_hash);  
 
     /**
      * @brief getter qui renvoie l'ensemble candidat associé à un ID 
@@ -87,13 +78,5 @@ struct State_graph
     void set_weight(int ID, int w); 
 
     void purge_layer(); 
-
-    /* AFFICHAGES */
-
-    void display_SG() const; // méthode d'affichage de SG dans le terminal 
-
-    void display_SG_detail() const; // méthode d'affichage de SG avec les relations entre ensembles 
-
-    void display_weights() const; // afficher les poids de chaque ensemble candidat
 
 }; 
