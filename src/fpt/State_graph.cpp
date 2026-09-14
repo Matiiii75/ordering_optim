@@ -13,6 +13,9 @@ State_graph::State_graph(const Data& _data): data(_data)
     // - ajouter de la place à l'index "ID" dans weights (par défaut -1)
 
     add_cand_to_SG(first_cand, first_cand_hash); 
+    // faut pas oublier de l'ajouter à son propre layer 
+    curr_layer_IDs.push_back(0); 
+    curr_layer_size = 1; // la taille du cut_set associé vaut 1 (contient que s)
     weights[0] = 0; 
 }
 
@@ -75,6 +78,17 @@ void State_graph::set_weight(int ID, int w) {
 
     weights[ID] = w; 
 
+}
+
+void State_graph::purge_layer() 
+{
+    for(int id : curr_layer_IDs) {
+        if(ID_to_cands[id].empty()) continue; // sécurité 
+        keyHash cand_hash = compute_cand_hash(ID_to_cands[id], data.node_to_hash); // on retrouve son hash 
+        hash_to_ID.erase(cand_hash);  // retirer la clé de la table de hachage 
+        std::vector<int>().swap(ID_to_cands[id]); // libérer la ram du candidat 
+    }
+    curr_layer_IDs.clear(); // on vide le layer 
 }
 
 void State_graph::display_SG() const {

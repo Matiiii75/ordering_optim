@@ -79,7 +79,16 @@ void FPT_solver::solve()
         int cut_set_size = 0; // 0 par défaut, on va le régler dans compute_cut_set
         std::vector<uint8_t> cut_set(data.dag_size, 1); 
         std::vector<int> hors_cut_set; 
-        compute_cut_set(C, cut_set_size, cut_set, hors_cut_set); 
+        compute_cut_set(C, cut_set_size, cut_set, hors_cut_set);
+        
+        // vérification nouveau layer ? 
+        // (un layer est un ensemble de cands dont les cut-set associés sont de mm taille)
+        if(cut_set_size > SG.curr_layer_size) {
+            SG.purge_layer(); // nettoyage 
+            SG.curr_layer_size++; // on commence un nouveau layer de taille +1
+        }
+
+        SG.curr_layer_IDs.push_back(C_ID); 
         
         for(int i = 0; i < (int)C.size(); ++i) // pr chq candidat de C
         { 

@@ -31,6 +31,8 @@ struct State_graph
     std::unordered_map<keyHash, std::vector<int>, KeyHasher, KeyEqual> hash_to_ID; 
     std::vector<std::vector<int>> SG; 
     std::vector<int> weights; 
+    int curr_layer_size; 
+    std::vector<int> curr_layer_IDs;    
 
     State_graph(const Data& _data); 
 
@@ -83,6 +85,8 @@ struct State_graph
      * @note lève une erreur si ID >= taille(weights)
      */
     void set_weight(int ID, int w); 
+
+    void purge_layer(); 
 
     /* AFFICHAGES */
 
