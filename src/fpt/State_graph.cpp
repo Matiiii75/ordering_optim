@@ -46,10 +46,10 @@ void State_graph::add_cand_to_SG(const std::vector<int>& cand, const keyHash& ca
     ID_to_cands.push_back(cand); // ajoute la relation ID to cand 
     int cand_ID = (int)ID_to_cands.size() - 1; // on récupère son ID 
     hash_to_ID[cand_hash].push_back(cand_ID); // associer au hash son ID 
-    SG.push_back({}); // initialiser un vecteur vide pour l'index "cand_ID"
+    // SG.push_back({}); // initialiser un vecteur vide pour l'index "cand_ID"
     weights.push_back(-1); // on ajoute le poids -1 par défaut à l'ID 
 
-    assert(ID_to_cands.size() == SG.size()); // précautions anti dépassement 
+    // assert(ID_to_cands.size() == SG.size()); // précautions anti dépassement 
     assert(ID_to_cands.size() == weights.size()); 
 
 }

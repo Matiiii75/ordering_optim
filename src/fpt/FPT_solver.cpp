@@ -112,7 +112,7 @@ void FPT_solver::solve()
                 pred_in_pcc.push_back({-1,-1}); // ajout d'un sommet defaut pour garder pred_in_pcc bien indéxé 
             }
 
-            SG.add_arc_from_C1_to_C2(C_ID, C2_ID); 
+            // SG.add_arc_from_C1_to_C2(C_ID, C2_ID); 
 
             update_distance_label(C_ID, C2_ID, curr_c); // maj du label de distance 
 

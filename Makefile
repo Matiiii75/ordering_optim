@@ -1,9 +1,9 @@
 # 1. Variables de configuration
 CXX = g++
-CXXFLAGS = -O3 -g -std=c++17 -Wall -Wextra
+CXXFLAGS = -O3 -g -std=c++17 -Wall -Wextra 
 
 # --- AJOUT CRUCIAL : Indiquer les dossiers contenant les .hpp ---
-CXXFLAGS += -Isrc/common -Isrc/fpt -Isrc/milp -Isrc/meta
+CXXFLAGS += -Isrc/common -Isrc/fpt -Isrc/milp -Isrc/meta 
 
 # --- DÉTECTION DU SYSTÈME ET DU MODULE GUROBI ---
 UNAME_S := $(shell uname -s)
