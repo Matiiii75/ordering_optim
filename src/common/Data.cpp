@@ -7,7 +7,6 @@ std::string getFileName(const std::string& path) {
 
 }
 
-
 /* DÉBUT PARTIE KEYHASH CANDIDATS */
 
 bool keyHash::operator==(const keyHash& other) const {
@@ -26,7 +25,6 @@ std::ostream& keyHash::operator<<(std::ostream& os) const {
     return os; 
 }
 
-
 keyHash randomGenerator(std::mt19937_64& moteur) {
 
     // pr générer entre 0 et le max encodé sur 64 bits aléatoirement 
@@ -39,7 +37,6 @@ keyHash randomGenerator(std::mt19937_64& moteur) {
 
     return nouveau; 
 }
-
 
 keyHash compute_cand_hash(const std::vector<int>& cand, const std::vector<keyHash>& node_to_hash) {
 
@@ -89,7 +86,6 @@ Data::Data(const std::string& file) {
 
 }
 
-
 Data::Data(const std::vector<std::vector<int>>& _dag): dag(_dag) 
 {
     this->dag_size = (int)_dag.size(); 
@@ -111,7 +107,6 @@ Data::Data(const std::vector<std::vector<int>>& _dag): dag(_dag)
     compute_node_to_hash(); 
     compute_transitive_closure(); 
 }
-
 
 void Data::compute_transitive_closure() { 
 
@@ -144,7 +139,6 @@ void Data::compute_transitive_closure() {
     this->TC = trans_closure; 
 }
 
-
 void Data::compute_node_to_hash() {
 
     std::vector<keyHash> nodeToHash(dag_size); 
@@ -160,7 +154,6 @@ void Data::compute_node_to_hash() {
 
 }
 
-
 void Data::display_dag() const {
 
     for(int i = 0; i < (int)dag.size(); ++i) {
@@ -172,7 +165,6 @@ void Data::display_dag() const {
     }
 
 }
-
 
 void Data::display_reverse_dag() const {
 

@@ -33,6 +33,8 @@ SRC_COMMON = src/common/Common.cpp \
              src/common/DagCutwidth.cpp \
              src/fpt/State_graph.cpp \
              src/fpt/FPT_solver.cpp \
+             src/common/PreTraitement.cpp \
+             src/common/Master.cpp \
              src/milp/DSC1.cpp \
              src/milp/DSC2.cpp \
              src/milp/DSC3.cpp \

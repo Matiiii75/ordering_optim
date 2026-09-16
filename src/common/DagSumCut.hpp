@@ -27,6 +27,8 @@ struct DagSumCut : Criteres
         const std::vector<int>& ordre_topo, 
         int value_found
     ) const override;  
+
+    virtual std::string get_name() const override; 
 }; 
 
 

@@ -12,9 +12,9 @@ struct FPT_solver
     State_graph& SG; 
     const Criteres& critere; 
 
-    std::queue<int> L; 
-    std::vector<int> best_dist; 
-    std::vector<std::pair<int,int>> pred_in_pcc; 
+    std::queue<int> L;                                  // liste fifo pour l'algo principal
+    std::vector<int> best_dist;                         // best_dist[ID] = plus courte distance de la source à ID dans SG 
+    std::vector<std::pair<int,int>> pred_in_pcc;        // pred_in_pcc[ID] = {ID_pred, candidat ajouté}
 
     double time_limit;  
     Timer timer; 
@@ -72,5 +72,8 @@ struct FPT_solver
      */
     void solve(); 
 
+    /**
+     * @brief extrait les données obtenues suite à la résolution. 
+     */
     SolverResults get_results() const; 
 }; 

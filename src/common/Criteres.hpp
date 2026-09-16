@@ -46,6 +46,10 @@ struct Criteres
         const std::vector<int>& ordre_topo, 
         int value_found
     ) const = 0; 
+
+    // méthode qui permet de connaitre le critere 
+    // renvoie "DSC" ou "CW"
+    virtual std::string get_name() const = 0; 
 }; 
 
 

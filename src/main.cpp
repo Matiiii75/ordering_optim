@@ -3,6 +3,7 @@
 #include <exception>
 
 #include "Data.hpp"
+#include "Master.hpp"
 #include "State_graph.hpp"
 #include "DagSumCut.hpp"
 #include "DagCutwidth.hpp"
@@ -29,29 +30,15 @@ int main(int argc, char* argv[])
 
     if(choice_algo == 0) 
     {
-        State_graph SG(data); 
         DagSumCut critere_DSC(data); 
-        FPT_solver solver(data, SG, critere_DSC, time_limit); 
-        solver.solve(); 
-        res = solver.get_results();   
-        logs.display_FPT(res, display_order);
-        if(res.found_solution)
-            critere_DSC.checker(res.optimal_order, res.optimal_value); 
-        if(write_results)
-            logs.write_FPT_results(res, "DSC"); 
+        Master master(data, time_limit, write_results, &critere_DSC); 
+        master.solve_FPT(); 
     }
     if(choice_algo == 1)
     {
-        State_graph SG(data); 
         DagCutwidth critere_CW(data); 
-        FPT_solver solver(data, SG, critere_CW, time_limit); 
-        solver.solve(); 
-        res = solver.get_results();   
-        logs.display_FPT(res, display_order);
-        if(res.found_solution)
-            critere_CW.checker(res.optimal_order, res.optimal_value); 
-        if(write_results)
-            logs.write_FPT_results(res, "CW"); 
+        Master master(data, time_limit, write_results, &critere_CW); 
+        master.solve_FPT(); 
     }
     if(choice_algo == 2)
     {
@@ -97,6 +84,12 @@ int main(int argc, char* argv[])
         logs.display_Milp(res, display_order);
         if(write_results)
             logs.write_MILP_results(res, "CW3"); 
+    }
+    if(choice_algo == 7)
+    {
+        DagSumCut critere_DSC(data); 
+        Master master(data, time_limit, write_results, &critere_DSC); 
+        master.solve_FPT_pre_traitement(); 
     }
 
     return 0; 

@@ -82,3 +82,7 @@ bool DagCutwidth::checker(const std::vector<int>& ordre_topo, int value_found) c
     return true; 
 }
 
+std::string DagCutwidth::get_name() const 
+{
+    return "DW"; 
+}

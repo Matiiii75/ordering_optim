@@ -85,3 +85,8 @@ bool DagSumCut::checker(const std::vector<int>& ordre_topo, int value_found) con
     return true; 
 }
 
+std::string DagSumCut::get_name() const 
+{
+    return "DSC"; 
+}
+
