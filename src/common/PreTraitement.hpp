@@ -5,6 +5,10 @@
 struct PreTraitement 
 {   
     const Data& data;                                       // data originales
+    std::vector<int> one_node_comp; 
+    std::vector<std::pair<int,int>> two_nodes_comp;
+    std::vector<std::vector<int>> all_map_new_to_old; 
+    std::vector<Data> sub_instances; 
 
     PreTraitement(const Data& _data): data(_data) {}
     
