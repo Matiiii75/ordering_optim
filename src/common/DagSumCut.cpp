@@ -95,3 +95,13 @@ std::unique_ptr<Criteres> DagSumCut::clone(const Data& data) const
     return std::make_unique<DagSumCut>(data); 
 }
 
+void DagSumCut::aggrege_sub_solution(int& global_value, int sub_optimal_value) const
+{
+    global_value += sub_optimal_value; 
+}
+
+void DagSumCut::aggrege_trivial_components(int& global_value, int nb_two_nodes_comp) const 
+{
+    global_value += nb_two_nodes_comp;
+}
+

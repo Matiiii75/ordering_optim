@@ -14,6 +14,8 @@
 #   milp_dsc3  : Gurobi - SumCut (Modèle 3 - Step variables)
 #   milp_cw2   : Gurobi - Cutwidth (Modèle 2 - Big M)
 #   milp_cw3   : Gurobi - Cutwidth (Modèle 3 - Step variables)
+#   fpt_pt_dsc : FPT + pré-traitement pour dagsumcut 
+#   fpt_pt_cw  : FPT + pré-traitement pour dagcutwidth 
 # ==============================================================================
 
 MODE_CIBLE="${1:-fpt_dsc}" # Mode par défaut
@@ -39,6 +41,8 @@ case "$MODE_CIBLE" in
     milp_dsc3) CHOICE_ALGO=4 ;;
     milp_cw2)  CHOICE_ALGO=5 ;;
     milp_cw3)  CHOICE_ALGO=6 ;;
+    fpt_pt_dsc) CHOICE_ALGO=7 ;;
+    fpt_pt_cw) CHOICE_ALGO=8 ;; 
     *)
         echo "Erreur : Mode '$MODE_CIBLE' inconnu."
         exit 1

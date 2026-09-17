@@ -52,6 +52,20 @@ struct Criteres
     virtual std::string get_name() const = 0; 
 
     virtual std::unique_ptr<Criteres> clone(const Data& data) const = 0; 
+
+    /**
+     * @brief Met à jour la valeur globale de l'objectif lors du pré-traitement
+     * @param global_value La valeur de l'objectif global en cours de calcul (passée par référence)
+     * @param sub_optimal_value La valeur optimale renvoyée par la résolution d'une sous-instance
+     */
+    virtual void aggrege_sub_solution(int& global_value, int sub_optimal_value) const = 0; 
+
+    /**
+     * @brief Met à jour la valeur globale avec les composantes triviales (taille 2)
+     * @param global_value La valeur de l'objectif global en cours de calcul (passée par référence)
+     * @param nb_two_nodes_comp Le nombre de composantes à 2 nœuds
+     */
+    virtual void aggrege_trivial_components(int& global_value, int nb_two_nodes_comp) const = 0;
 }; 
 
 

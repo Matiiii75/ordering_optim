@@ -5,7 +5,7 @@ void Master::solve_FPT_pre_traitement() const
     if(critere == nullptr)
         throw std::invalid_argument("Master::solver_FPT_pre_traitement -> critere == nullptr"); 
 
-    display_execution_choice("FPT-PT", "DSC"); 
+    display_execution_choice("FPT-PT", critere->get_name()); 
 
     double time_remaining = time_limit; 
     int total_value = 0; 
@@ -33,7 +33,7 @@ void Master::solve_FPT_pre_traitement() const
         time_remaining -= sub_res.total_time; 
 
         if(sub_res.found_solution) {
-            total_value += sub_res.optimal_value; 
+            critere->aggrege_sub_solution(total_value, sub_res.optimal_value);  
             std::vector<int> sub_solution = sub_res.optimal_order; 
             std::vector<int> relabelled_sol;
             relabelled_sol = pt.re_label_sub_solution(sub_solution, i); 
@@ -43,7 +43,7 @@ void Master::solve_FPT_pre_traitement() const
             break;
         }
     }
-    total_value += (int)pt.two_nodes_comp.size(); 
+    critere->aggrege_trivial_components(total_value, (int)pt.two_nodes_comp.size()); 
 
     double total_time = time_limit - time_remaining; 
 

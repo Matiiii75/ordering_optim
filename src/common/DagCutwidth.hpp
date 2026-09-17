@@ -30,7 +30,11 @@ struct DagCutwidth : Criteres
 
     virtual std::string get_name() const override;
     
-    virtual std::unique_ptr<Criteres> clone(const Data& data) const override; 
+    virtual std::unique_ptr<Criteres> clone(const Data& data) const override;
+    
+    virtual void aggrege_sub_solution(int& global_value, int sub_optimal_value) const override; 
+
+    virtual void aggrege_trivial_components(int& global_value, int nb_two_nodes_comp) const override; 
 }; 
 
 

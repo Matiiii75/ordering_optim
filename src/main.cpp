@@ -88,6 +88,12 @@ int main(int argc, char* argv[])
         Master master(data, time_limit, write_results, &critere_DSC); 
         master.solve_FPT_pre_traitement(); 
     }
+    if(choice_algo == 8)
+    {
+        DagCutwidth critere_CW(data); 
+        Master master(data, time_limit, write_results, &critere_CW); 
+        master.solve_FPT_pre_traitement(); 
+    }
 
     return 0; 
 }

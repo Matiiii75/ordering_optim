@@ -84,10 +84,23 @@ bool DagCutwidth::checker(const std::vector<int>& ordre_topo, int value_found) c
 
 std::string DagCutwidth::get_name() const 
 {
-    return "DW"; 
+    return "CW"; 
 }
 
 std::unique_ptr<Criteres> DagCutwidth::clone(const Data& data) const 
 {
     return std::make_unique<DagCutwidth>(data); 
 }
+
+void DagCutwidth::aggrege_sub_solution(int& global_value, int sub_optimal_value) const 
+{
+    global_value = std::max(global_value, sub_optimal_value); 
+}
+
+void DagCutwidth::aggrege_trivial_components(int& global_value, int nb_two_nodes_comp) const 
+{
+    if (nb_two_nodes_comp > 0) {
+        global_value = std::max(global_value, 1);
+    }
+}
+
