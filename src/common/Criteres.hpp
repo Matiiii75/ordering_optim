@@ -1,5 +1,6 @@
 #pragma once 
 
+#include <memory>
 #include "Data.hpp"
 
 struct Criteres 
