@@ -1,6 +1,7 @@
 #pragma once 
 
 #include "Data.hpp"
+#include "Common.hpp"
 
 struct PreTraitement 
 {   
@@ -18,6 +19,20 @@ struct PreTraitement
     // calcule le sous graphe induit (ré-indexé) par une composante
     Dag compute_induced_dag(const std::vector<int>& composante);  
     
-    // calcule les sous-instances induitent par composantes faiblement connexes 
+    // calcule les sous-instances induites par composantes faiblement connexes 
     void compute_sub_instances();
+
+    std::vector<int> re_label_sub_solution(
+        const std::vector<int>& sub_sol,
+        int instance_idx
+    ) const; 
+
+    SolverResults store_results(
+        int optimal_value, 
+        int total_cands,
+        double total_time,
+        const std::vector<int>& optimal_order
+    ) const; 
+
+    int count_composantes() const; 
 };

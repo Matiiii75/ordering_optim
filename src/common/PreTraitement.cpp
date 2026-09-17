@@ -110,3 +110,41 @@ void PreTraitement::compute_sub_instances()
     }
 }
 
+std::vector<int> PreTraitement::re_label_sub_solution(
+    const std::vector<int>& sub_sol, 
+    int instance_idx
+) const 
+{
+    std::vector<int> re_labelled_sol;
+    for(int pos = 0; pos < (int)sub_sol.size(); ++pos) 
+    {
+        int node = sub_sol[pos]; 
+        re_labelled_sol.push_back(this->all_map_new_to_old[instance_idx][node]); 
+    }
+    return re_labelled_sol; 
+}
+
+SolverResults PreTraitement::store_results(
+    int optimal_value, 
+    int total_cands, 
+    double total_time, 
+    const std::vector<int>& optimal_order
+) const 
+{
+    SolverResults res;
+    res.instance_name = data.instance_name; 
+    res.dag_size = data.dag_size; 
+    res.degeneracy = data.degenerascy; 
+    res.optimal_value = optimal_value; 
+    res.nb_cands = total_cands; 
+    res.total_time = total_time; 
+    res.optimal_order = optimal_order; 
+    res.nb_sub_pb_solved = (int)sub_instances.size();  
+    res.nb_total_composantes = count_composantes();  
+    return res; 
+}
+
+int PreTraitement::count_composantes() const
+{
+    return (int)one_node_comp.size() + (int)two_nodes_comp.size() + (int)sub_instances.size(); 
+} 

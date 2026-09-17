@@ -81,12 +81,17 @@ bool DagSumCut::checker(const std::vector<int>& ordre_topo, int value_found) con
         return false; 
     }
     
-    std::cout << "[-------- Checker OK --------]" << std::endl;
+    std::cout << "                 [-------- Checker OK --------]" << std::endl;
     return true; 
 }
 
 std::string DagSumCut::get_name() const 
 {
     return "DSC"; 
+}
+
+std::unique_ptr<Criteres> DagSumCut::clone(const Data& data) const
+{
+    return std::make_unique<DagSumCut>(data); 
 }
 

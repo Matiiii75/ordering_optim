@@ -29,6 +29,8 @@ struct DagSumCut : Criteres
     ) const override;  
 
     virtual std::string get_name() const override; 
+
+    virtual std::unique_ptr<Criteres> clone(const Data& data) const override; 
 }; 
 
 

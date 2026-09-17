@@ -78,11 +78,16 @@ bool DagCutwidth::checker(const std::vector<int>& ordre_topo, int value_found) c
         return false; 
     }
 
-    std::cout << "[-------- Checker OK --------]" << std::endl;
+    std::cout << "                 [-------- Checker OK --------]" << std::endl;
     return true; 
 }
 
 std::string DagCutwidth::get_name() const 
 {
     return "DW"; 
+}
+
+std::unique_ptr<Criteres> DagCutwidth::clone(const Data& data) const 
+{
+    return std::make_unique<DagCutwidth>(data); 
 }

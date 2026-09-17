@@ -50,6 +50,8 @@ struct Criteres
     // méthode qui permet de connaitre le critere 
     // renvoie "DSC" ou "CW"
     virtual std::string get_name() const = 0; 
+
+    virtual std::unique_ptr<Criteres> clone(const Data& data) const = 0; 
 }; 
 
 

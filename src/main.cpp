@@ -15,6 +15,26 @@
 #include "CW2.hpp"
 #include "CW3.hpp"
 
+
+/*
+Main du problème. 
+Prend 3 arguments : 
+1 -> instance du problème
+2 -> choix de l'algo 
+3 -> choix d'écrire le résultats dans un fichier .txt
+Pour lancer le code : 
+./prog [instances/inst.txt] [choix_algo] [choix_ecriture]
+Détail des paramètres : 
+0 -> DSC FPT 
+1 -> CW FPT 
+2 -> PL DSC1 
+3 -> PL DSC2 
+4 -> PL DSC3
+5 -> PL CW2 
+6 -> PL CW3
+7 -> FPT DSC + Pré-traitement
+*/
+
 int main(int argc, char* argv[]) 
 {   
     if(argc != 4) std::cout << "erreur nb args" << std::endl;
@@ -24,68 +44,45 @@ int main(int argc, char* argv[])
     int write_results = atoi(argv[3]); 
     double time_limit = 600.00; 
     Data data(instance_file);
-    SolverResults res; 
-    ResultsLogs logs;
-    bool display_order = false; 
 
-    if(choice_algo == 0) 
+    if(choice_algo == 0) // DSC FPT
     {
         DagSumCut critere_DSC(data); 
         Master master(data, time_limit, write_results, &critere_DSC); 
         master.solve_FPT(); 
     }
-    if(choice_algo == 1)
+    if(choice_algo == 1) // CW FPT 
     {
         DagCutwidth critere_CW(data); 
         Master master(data, time_limit, write_results, &critere_CW); 
         master.solve_FPT(); 
     }
-    if(choice_algo == 2)
+    if(choice_algo == 2) // PL DSC1
     {
-        DSC1 milp(data, time_limit); 
-        milp.solve(); 
-        res = milp.get_results(); 
-        logs.display_Milp(res, display_order); 
-        if(write_results)
-            logs.write_MILP_results(res, "DSC1"); 
+        Master master(data, time_limit, write_results); 
+        master.solve_DSC1(); 
     }
-    if(choice_algo == 3) 
+    if(choice_algo == 3) // PL DSC2
     {
-        DSC2 milp(data, time_limit); 
-        milp.solve(); 
-        res = milp.get_results(); 
-        logs.display_Milp(res, display_order); 
-        if(write_results)
-            logs.write_MILP_results(res, "DSC2"); 
+        Master master(data, time_limit, write_results); 
+        master.solve_DSC2();
     }
-    if(choice_algo == 4)
+    if(choice_algo == 4) // PL DSC3
     {
-        DSC3 milp(data, time_limit); 
-        milp.solve(); 
-        res = milp.get_results(); 
-        logs.display_Milp(res, display_order);
-        if(write_results)
-            logs.write_MILP_results(res, "DSC3");  
+        Master master(data, time_limit, write_results); 
+        master.solve_DSC3();  
     }
-    if(choice_algo == 5) 
+    if(choice_algo == 5) // PL CW2
     {
-        CW2 milp(data, time_limit); 
-        milp.solve(); 
-        res = milp.get_results(); 
-        logs.display_Milp(res, display_order);
-        if(write_results)
-            logs.write_MILP_results(res, "CW2"); 
+        Master master(data, time_limit, write_results); 
+        master.solve_CW2();
     }
-    if(choice_algo == 6) 
+    if(choice_algo == 6) // PL CW3
     {
-        CW3 milp(data, time_limit); 
-        milp.solve(); 
-        res = milp.get_results(); 
-        logs.display_Milp(res, display_order);
-        if(write_results)
-            logs.write_MILP_results(res, "CW3"); 
+        Master master(data, time_limit, write_results); 
+        master.solve_CW3(); 
     }
-    if(choice_algo == 7)
+    if(choice_algo == 7) // pré-traitement DSC
     {
         DagSumCut critere_DSC(data); 
         Master master(data, time_limit, write_results, &critere_DSC); 

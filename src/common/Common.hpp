@@ -14,6 +14,8 @@ struct SolverResults
     std::vector<int> optimal_order;
     double gap = -1.0;
     double best_bound = -1.0; 
+    int nb_sub_pb_solved = -1; // nombre de composantes de taille > 2 détéctées dans l'instance 
+    int nb_total_composantes = -1; 
     SolverResults() {}
 }; 
 
@@ -26,7 +28,6 @@ struct SolverResults
  * @note on mettra t = -1 par défaut pour dire qu'on regarde juste une inclusion sans chercher à exclure le puit t 
  */
 bool is_included(const std::vector<int>& v1, const std::vector<uint8_t>& v2, int t); 
-
 
 /**
  * @brief détermine si il existe un successeur de gamma qui n'est pas dans le cut set

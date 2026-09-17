@@ -4,6 +4,12 @@
 #include "Common.hpp"
 #include "FPT_solver.hpp"
 #include "ResultsLogs.hpp"
+#include "PreTraitement.hpp"
+#include "DSC1.hpp"
+#include "DSC2.hpp"
+#include "DSC3.hpp"
+#include "CW2.hpp"
+#include "CW3.hpp"
 
 struct Master
 {
@@ -11,6 +17,7 @@ struct Master
     double time_limit; 
     bool write_results;
     const Criteres* critere; // le critère à optimiser (si pretraite avec FPT) 
+    bool display_order = false; 
 
     Master(
         const Data& _data,   
@@ -30,4 +37,6 @@ struct Master
     void solve_DSC1() const; 
     void solve_DSC2() const; 
     void solve_DSC3() const; 
+
+    void display_execution_choice(const std::string& algo_type, const std::string& critere) const; 
 }; 
