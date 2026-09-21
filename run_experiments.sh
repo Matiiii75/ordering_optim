@@ -88,7 +88,7 @@ run_one_instance() {
             return 0
         fi
     else
-        if (( n > 250 )); then
+        if (( n != 500 )); then
             return 0
         fi
     fi
